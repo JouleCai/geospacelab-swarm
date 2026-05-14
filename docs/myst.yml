@@ -1,0 +1,35 @@
+version: 1
+project:
+  title: GeospaceLAB-Swarm Guide
+  authors:
+    - name: Lei Cai
+  github: JouleCai/geospacelab-swarm
+  bibliography:
+    - references.bib
+  exports:
+    - format: pdf
+      template: plain_latex_book
+      output: exports/geospacelab_swarm.pdf
+  toc:
+    - file: 0_intro.md
+    - title: "Getting Started"
+      children: 
+        - file: 1_overview.md
+        - file: 1_install.md
+        - file: 1_quickstart.ipynb
+    - title: "Tutorials"
+      children:
+        - file: 2_data_access.ipynb
+        - file: 2_data_visualization.ipynb
+        - file: 2_data_grouping_and_gridding.ipynb
+        - file: 2_conjunction.ipynb
+    - title: "Examples"
+      children:
+        - file: example_Swarm_MAG.ipynb
+        - file: example_Swarm_EFI.ipynb
+
+site:
+  options:
+    logo: logo.png
+    folders: true
+  template: book-theme
