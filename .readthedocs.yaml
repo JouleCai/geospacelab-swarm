@@ -15,10 +15,12 @@ build:
   commands:
     # Install myst
     - npm install -g mystmd
-    # Build the site
-    - myst build --html
+    - pip install -r docs/requirements.txt
+    - cd docs
+    - jupyter book build --html --strict
     # Copy the output to Read the Docs expected location
     - mkdir -p $READTHEDOCS_OUTPUT/html/
     - cp -r _build/html/. "$READTHEDOCS_OUTPUT/html"
     # Clean up build artifacts
     - rm -rf _build
+    - cd ..
