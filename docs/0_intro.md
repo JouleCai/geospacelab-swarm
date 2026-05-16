@@ -4,13 +4,10 @@ This documentation is a guidance for accessing and visulizing ESA's Swarm missio
 
 [GeospaceLAB](https://github.com/JouleCai/geospacelab) is an open source Python package, which provides a unified, standardized framework to access, visulize, and analyze data in Space Physics [@cai2022geospacelab]. Using GeospaceLAB, users can easily download and load data from supported online providers/sources and combine different data for visulization. 
 
-For Swarm mission, GeospaceLAB currently supports 31 data products in the listed in the categories of “Ionosphere/Magnetosphere”, “Thermosphere”, “Space Weather”, and “Magnetic measurements” in the [Swarm Product Data Handbook](https://swarmhandbook.earth.esa.int/catalogue/index). The full list can be found in Table
+For Swarm mission, GeospaceLAB currently supports 30 data products in the listed in the categories of “Ionosphere/Magnetosphere”, “Thermosphere”, “Space Weather”, and “Magnetic measurements” in the [Swarm Product Data Handbook](https://swarmhandbook.earth.esa.int/catalogue/index). The full list can be found in {numref}`tab:swarm-products` in [](./1_overview.md).
 
 
-
-
-
-Check out the content pages bundled with this sample book to see more.
+Check out the following pages for more details on using GeospaceLAB to access and visualize Swarm data products. Furthermore, you can combine Swarm data with other datasets supported by GeospaceLAB, e.g., from AMPERE, DMSP, and SuperDARN, to conduct comprehensive studies of space physics and space weather.
 
 ```{tableofcontents}
     

@@ -1,5 +1,4 @@
 # Installation
-
 ## Python environment and IDEs
 The Python distribution **Anaconda** is recommended. To install **Anaconda**, see [Installing Anaconda Distribution](https://www.anaconda.com/docs/getting-started/anaconda/install/overview). After installation, a **conda** virtual environment can be created by, e.g.,
 
@@ -14,11 +13,8 @@ conda activate YOUR_ENV_NAME
 ```
 
 ### Python IDEs
-Popular Python IDEs include **Spyder**, **PyCharm**, and **VS Code**. Select one of the 
+Popular Python IDEs include **Spyder**, **PyCharm**, and **VS Code**. 
 
-:::(note) 
-
-:::
 
 ## Install GeospaceLAB
 
@@ -37,6 +33,8 @@ Most of the dependencies are installed when the package is installed. A few pack
 For example, the **Cartopy** package is useful for processing and mapping geospatial data. To install **Cartopy**, see [Installing Cartopy](https://cartopy.readthedocs.io/stable/installing.html).
 
 Another useful package is **ApexPy**, which provides a Python interface to the Apex coordinate system. To install **ApexPy**, see [Installing ApexPy](https://apexpy.readthedocs.io/en/latest/installation.html).
+
+
 
 
 

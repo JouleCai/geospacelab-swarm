@@ -16,20 +16,24 @@ project:
       children: 
         - file: 1_overview.md
         - file: 1_install.md
+        - file: 1_configuration.md
         - file: 1_quickstart.ipynb
     - title: "Tutorials"
       children:
         - file: 2_data_access.ipynb
+          children:
+            - file: 2_supported_datasets.ipynb
         - file: 2_data_visualization.ipynb
         - file: 2_data_grouping_and_gridding.ipynb
         - file: 2_conjunction.ipynb
-    - title: "Examples"
-      children:
-        - file: example_Swarm_MAG.ipynb
-        - file: example_Swarm_EFI.ipynb
+        - title: "Examples"
+          children:
+            - file: example_Swarm_MAG.ipynb
+            - file: example_Swarm_EFI.ipynb
 
 site:
   options:
     logo: logo.png
     folders: true
   template: book-theme
+  hide_authors: true
