@@ -18,9 +18,9 @@ build:
     - pip install -r docs/requirements.txt
     - pip show jupyter-book
     - ls -la
-    - jupyter-book build docs/* --html --strict
+    - cd docs; pwd; ls -la; jupyter-book build --html --strict
     # Copy the output to Read the Docs expected location
     - mkdir -p $READTHEDOCS_OUTPUT/html/
-    - cp -r _build/html/. "$READTHEDOCS_OUTPUT/html"
+    - cp -r docs/_build/html/. "$READTHEDOCS_OUTPUT/html"
     # Clean up build artifacts
-    - rm -rf _build
+    - rm -rf docs/_build
