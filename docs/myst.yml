@@ -35,5 +35,6 @@ site:
   options:
     logo: logo.png
     folders: true
+    hide_authors: true
   template: book-theme
-  hide_authors: true
+  
