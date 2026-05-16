@@ -16,6 +16,7 @@ build:
     # Install myst
     - npm install -g mystmd
     - pip install -r docs/requirements.txt
+    - pip show jupyter-book
     - cd docs
     - jupyter book build --html --strict
     # Copy the output to Read the Docs expected location
