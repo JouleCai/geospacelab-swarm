@@ -18,10 +18,10 @@ build:
     - pip install -r docs/requirements.txt
     - pip show jupyter-book
     - cd docs
-    - jupyter book build --html --strict
+    - ls -la
+    - jupyter-book build myst.yml --html --strict
     # Copy the output to Read the Docs expected location
     - mkdir -p $READTHEDOCS_OUTPUT/html/
     - cp -r _build/html/. "$READTHEDOCS_OUTPUT/html"
     # Clean up build artifacts
     - rm -rf _build
-    - cd ..
