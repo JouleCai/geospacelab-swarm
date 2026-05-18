@@ -34,6 +34,20 @@ For example, the **Cartopy** package is useful for processing and mapping geospa
 
 Another useful package is **ApexPy**, which provides a Python interface to the Apex coordinate system. To install **ApexPy**, see [Installing ApexPy](https://apexpy.readthedocs.io/en/latest/installation.html).
 
+:::{note}
+To use the VirES and HAPI services, install the `viresclient`:
+
+```{code-block} shell
+pip install viresclient
+```
+and the `hapiclient`:
+```{code-block} shell
+pip install hapiclient
+```
+:::
+
+
+
 
 
 
