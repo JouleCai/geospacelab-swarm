@@ -2,9 +2,3 @@ jupyter-book>=2.0.0
 jupyterlab_myst
 matplotlib
 numpy
-sphinx
-sphinx-book-theme
-sphinx-inline-tabs
-sphinx-examples
-sphinx-proof
-sphinx-hoverxref
