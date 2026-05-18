@@ -17,8 +17,6 @@ Users can easily access the listed Swarm data products from (1) ESA's [Swarm Dis
 
 
 :::{table} Supported Swarm data products in GeospaceLAB
-:widths: auto
-:header-rows: 1
 :name: tab:swarm-products
 | No.  | Product         | Level      | Folder                | Description                                                                | Status |
 |------|-----------------|------------|-----------------------|----------------------------------------------------------------------------|--------|

@@ -29,7 +29,10 @@ project:
         - title: "Examples"
           children:
             - file: example_Swarm_MAG.ipynb
-            - file: example_Swarm_EFI.ipynb
+            - file: example_Swarm_EFI_LP_FP.ipynb
+            - file: example_Swarm_EFI_TII_TCT.ipynb
+            - file: example_Swarm_EFI_IDM.ipynb
+            - file: example_Swarm_AEJ.ipynb
 
 site:
   options:
