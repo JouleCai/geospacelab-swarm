@@ -1,0 +1,111 @@
+% Created with jtex v.1.0.21
+\documentclass[a4paper,11pt,oneside]{book}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage{changepage}
+\usepackage{framed}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\bibliographystyle{abbrvnat}
+
+% Make list items more compact
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%  imports  %%%%%%%%%%%%%%%%%%%
+\usepackage{booktabs}
+\usepackage{url}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\hypersetup{
+  colorlinks,
+  linkcolor={black},
+  citecolor={black},
+  urlcolor={black}
+}
+
+% Style quotes
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+\definecolor{quoteshade}{rgb}{0.95, 0.95, 1}
+\renewenvironment{quote}{%
+  \def\FrameCommand{%
+    \hspace{1pt}%
+    {\color{darkblue}\vrule width 2pt}%
+    {\color{quoteshade}\vrule width 4pt}%
+    \colorbox{quoteshade}%
+  }%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}%
+  \noindent\hspace{-8pt}% disable indenting first paragraph
+  \begin{adjustwidth}{0pt}{0pt}% adjust as needed
+  \vspace{2pt}\vspace{2pt}%
+}
+{%
+  \vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+
+\title{\Huge \textbf{GeospaceLAB-Swarm Guide}}
+\author{\textsc{Lei Cai}}
+
+\begin{document}
+\sloppy
+
+\frontmatter
+\maketitle
+
+\tableofcontents
+% \listoffigures
+% \listoftables
+
+\mainmatter
+
+% \include{preface.tex}
+% \include{acknowledgements.tex}
+
+\section{Getting Started}
+
+\include{geospacelab_swarm-overview}
+
+\include{geospacelab_swarm-install}
+
+\include{geospacelab_swarm-configuration}
+
+\include{geospacelab_swarm-quickstart}
+
+\section{Tutorials}
+
+\include{geospacelab_swarm-data-access}
+
+\include{geospacelab_swarm-supported-datasets}
+
+\include{geospacelab_swarm-data-visualization}
+
+\include{geospacelab_swarm-data-grouping-and-gridding}
+
+\include{geospacelab_swarm-conjunction}
+
+\subsection{Examples}
+
+\include{geospacelab_swarm-example-swarm-mag}
+
+\include{geospacelab_swarm-example-swarm-efi-lp-fp}
+
+\include{geospacelab_swarm-example-swarm-efi-tii-tct}
+
+\include{geospacelab_swarm-example-swarm-efi-idm}
+
+\include{geospacelab_swarm-example-swarm-aej}
+
+
+
+
+\bibliography{main.bib}
+
+\end{document}

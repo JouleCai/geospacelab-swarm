@@ -1,0 +1,586 @@
+\subsection{Swarm data access}
+
+This tutorial demonstrates how to access Swarm data using GeospaceLAB. We will use the Swarm MAG LR dataset as an example, but the same process applies to other datasets as well.
+A full list of the supported datasets and their name patterns can be found in the \href{/supported-datasets}{Supported datasets} tutorial. Also, the examples for accessing other datasets can be found in the \href{/example-swarm-mag}{Examples} tutorial.
+
+\begin{framed}
+\textbf{Tip}\\
+In addtion to the examples shown in this documentation, more example scripts can be found in GeospaceLAB \href{https://github.com/JouleCai/geospacelab/tree/master/examples}{examples} and \href{https://github.com/JouleCai/geospacelab/tree/master/test}{test}.
+\end{framed}
+
+The Swarm data can be accessed in three ways:
+
+\begin{enumerate}
+\item via~Swarm~Dissemination~Server
+\item via~Swarm~VirES
+\item via~Swarm~VirES~HAPI~Service
+\end{enumerate}
+
+\begin{framed}
+\textbf{Note}\\
+For 2 and 3, GeospaceLAB currently supports only the MAG LR data. Supports for other data products will be implemented next.
+\end{framed}
+
+\begin{verbatim}
+import datetime
+import geospacelab.datahub as datahub
+\end{verbatim}
+
+\subsubsection{Access data via Swarm Dissemination Sever}\label{swarm-dissemination-server}
+
+\paragraph{Initial settings}
+
+\begin{verbatim}
+dt_fr = datetime.datetime(2016, 3, 15, 18, 18)
+dt_to = datetime.datetime(2016, 3, 15, 18, 23)
+sat_id = "A"
+\end{verbatim}
+
+\paragraph{Create a datahub}
+
+\begin{verbatim}
+dh = datahub.DataHub(
+    dt_fr=dt_fr,    # Start time for data retrieval
+    dt_to=dt_to,    # End time for data retrieval
+    visual='on'     # Enable plotting properties for datasets and variables. 
+                    # Used for visualizing the data in the dashboard.
+    )
+\end{verbatim}
+
+\begin{framed}
+\textbf{Tip}\\
+Above returns a \texttt{DataHub} object, which is used as a data manager in GeospaceLAB. A \texttt{DataHub} object (here is \texttt{dh}) can manage multiple datasets (GeospaceLAB \texttt{Dataset} objects) and a \texttt{Dataset} object manages multiple variables (GeospaceLAB \texttt{Variable} objects).
+\end{framed}
+
+\paragraph{Dock a Swarm dataset}
+
+The \texttt{dock} method is called to dock a specific dataset. The \texttt{dock} method responds to a sequence of work flows, including
+
+\begin{itemize}
+\item contacting the Swarm Dissemination FTP Sever,
+\item checking the data product version and data availability,
+\item downloading the data files,
+\item loading the data files to the dataset.
+\end{itemize}
+
+The method takes the name patterns of the dataset as an argument and returns a dataset object. For example, the following code docks the Swarm MAG LR dataset for the specified time range and satellite ID as shwon above. A full list of the supported datasets and required inputs can be found in the \href{/supported-datasets}{Supported datasets} tutorial.
+
+\begin{verbatim}
+ds = dh.dock(
+    datasource_contents=['esa_eo', 'swarm', 'l1b', 'mag_lr'],  # The name patterns of the data products to be retrieved.
+    sat_id=sat_id,  # The Swarm satellite ID (A, B, or C) for which the data products will be retrieved.
+    product_version='latest',  # The version of the data products to be retrieved.
+                            # Default is 'latest', which retrieves the most recent version available.
+                            # To specify a particular version, use the format 'XXXX' (e.g., '0301').
+    add_APEX=True,  # Whether to add APEX coordinates to the dataset.
+    )
+\end{verbatim}
+
+\begin{verbatim}
+Searching the data product "MAG_LR" with the version "latest" on the server...
+The file [PosixPath('/data/afys -ionosphere/data/ESA/SWARM/Level1b/MAG_LR/0701/Sat_A/2016/SW_OPER_MAGA_LR_1B_20160315T000000_20160315T235959_0701_MDR_MAG_LR.cdf'), PosixPath('/data/afys -ionosphere/data/ESA/SWARM/Level1b/MAG_LR/0701/Sat_A/2016/SW_OPER_MAGA_LR_1B_20160315T000000_20160315T235959_0701_ASM_VFM_IC.cdf')] already exists: skip downloading.
+WARNING: Multiple files found for the pattern *20160315T000000*20160315T235959*0701*.cdf in the directory /data/afys -ionosphere/data/ESA/SWARM/Level1b/MAG_LR/0701/Sat_A/2016!
+/opt/anaconda3/envs/Swarm/lib/python3.12/site -packages/numpy/_core/numeric.py:442: RuntimeWarning: invalid value encountered in cast
+  multiarray.copyto(res, fill_value, casting='unsafe')
+\end{verbatim}
+
+\begin{framed}
+\textbf{Note}\\
+The data files downloaded from the Swarm Dissemination FTP Sever are stored in the GeospaceLAB data folder (see \href{/configuration}{Configuration}). The data product with different versions are arranged in separate folders.
+\end{framed}
+
+\begin{framed}
+\textbf{Tip}\\
+To access other supported Swarm data products, check \href{/supported-datasets}{Supported datasets in GeospaceLAB} and replace the keyword \texttt{datasource\_contents=['esa\_eo', 'swarm', 'l1b', 'mag\_lr']} with the corresponding name patterns. For example, to dock the Swarm EFI TCT 2Hz data, use the keyword \texttt{datasource\_contents=['esa\_eo', 'swarm', 'advanced', 'efi\_tct02']}. This is also applied for other datasets supported in GeospaceLAB.
+\end{framed}
+
+The data files can be listed by calling
+
+\begin{verbatim}
+ds.data_file_paths
+\end{verbatim}
+
+\begin{verbatim}
+[PosixPath('/data/afys -ionosphere/data/ESA/SWARM/Level1b/MAG_LR/0701/Sat_A/2016/SW_OPER_MAGA_LR_1B_20160315T000000_20160315T235959_0701_MDR_MAG_LR.cdf')]
+\end{verbatim}
+
+And the data file versions can be listed by calling
+
+\begin{verbatim}
+ds.data_file_versions
+\end{verbatim}
+
+\begin{verbatim}
+['0701']
+\end{verbatim}
+
+\subparagraph{List the variables included in the dataset}
+
+To see the variables loaded in the dataset, call
+
+\begin{verbatim}
+ds.list_all_variables()
+\end{verbatim}
+
+\begin{verbatim}
+Dataset: esa/earthonline | swarm | mag | mag_lr
+Printing all of the variables ...
+|No.                 |Variable name                 |Variable name (Source)        |Description                                                                                         |
+| - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -|
+|1                   |SC_DATETIME                   |N/A                           |Time of observation                                                                                 |
+|2                   |SYNC_STATUS                   |SyncStatus                    |                                                                                                    |
+|3                   |SC_GEO_LAT                    |Latitude                      |Geographic Latitude                                                                                 |
+|4                   |SC_GEO_LON                    |Longitude                     |Geographic Longitude                                                                                |
+|5                   |SC_GEO_r                      |N/A                           |                                                                                                    |
+|6                   |B_VFM                         |B_VFM                         |                                                                                                    |
+|7                   |B_VFM_x                       |N/A                           |B in x direction of VFM frame                                                                       |
+|8                   |B_VFM_y                       |N/A                           |B in y direction of VFM frame                                                                       |
+|9                   |B_VFM_z                       |N/A                           |B in z direction of VFM frame                                                                       |
+|10                  |B_VFM_x_err                   |N/A                           |                                                                                                    |
+|11                  |B_VFM_y_err                   |N/A                           |                                                                                                    |
+|12                  |B_VFM_z_err                   |N/A                           |                                                                                                    |
+|13                  |B_NEC                         |B_NEC                         |                                                                                                    |
+|14                  |B_N                           |N/A                           |B in northward direction of NEC frame                                                               |
+|15                  |B_E                           |N/A                           |B in eastward direction of NEC frame                                                                |
+|16                  |B_C                           |N/A                           |B in downward direction of NEC frame                                                                |
+|17                  |dB_Sun_VFM                    |dB_Sun                        |                                                                                                    |
+|18                  |dB_Sun_VFM_x                  |N/A                           |dB due to Sun induced perturbation in x direction of VFM frame                                      |
+|19                  |dB_Sun_VFM_y                  |N/A                           |dB due to Sun induced perturbation in y direction of VFM frame                                      |
+|20                  |dB_Sun_VFM_z                  |N/A                           |dB due to Sun induced perturbation in z direction of VFM frame                                      |
+|21                  |dB_AOCS_VFM                   |dB_AOCS                       |                                                                                                    |
+|22                  |dB_AOCS_VFM_x                 |N/A                           |dB due to AOCS induced perturbation in x direction of VFM frame                                     |
+|23                  |dB_AOCS_VFM_y                 |N/A                           |dB due to AOCS induced perturbation in y direction of VFM frame                                     |
+|24                  |dB_AOCS_VFM_z                 |N/A                           |dB due to AOCS induced perturbation in z direction of VFM frame                                     |
+|25                  |dB_other_VFM                  |dB_other                      |                                                                                                    |
+|26                  |dB_other_VFM_x                |N/A                           |dB due to all other sources of perturbation in x direction of VFM frame                             |
+|27                  |dB_other_VFM_y                |N/A                           |dB due to all other sources of perturbation in y direction of VFM frame                             |
+|28                  |dB_other_VFM_z                |N/A                           |dB due to all other sources of perturbation in z direction of VFM frame                             |
+|29                  |B_VFM_err                     |B_error                       |                                                                                                    |
+|30                  |q_NEC_CRF                     |q_NEC_CRF                     |                                                                                                    |
+|31                  |Att_error                     |Att_error                     |                                                                                                    |
+|32                  |FLAG_B                        |Flags_B                       |Flag B                                                                                              |
+|33                  |FLAG_q                        |Flags_q                       |Flag q                                                                                              |
+|34                  |FLAG_Platform                 |Flags_Platform                |Flag Platform                                                                                       |
+|35                  |FLAG_B_BIN_AUX                |N/A                           |Binary flag for B                                                                                   |
+|36                  |FLAG_B_BIN_IND                |N/A                           |                                                                                                    |
+|37                  |FLAG_q_BIN_AUX                |N/A                           |Binary flag for q                                                                                   |
+|38                  |FLAG_q_BIN_IND                |N/A                           |                                                                                                    |
+|39                  |FLAG_Platform_BIN_AUX         |N/A                           |Binary flag for Platform                                                                            |
+|40                  |FLAG_Platform_BIN_IND         |N/A                           |                                                                                                    |
+|41                  |FLAG_F                        |Flags_F                       |Flag F                                                                                              |
+|42                  |FLAG_F_BIN_AUX                |N/A                           |Binary flag for F                                                                                   |
+|43                  |FLAG_F_BIN_IND                |N/A                           |                                                                                                    |
+|44                  |ASM_Freq_Dev                  |ASM_Freq_Dev                  |                                                                                                    |
+|45                  |F                             |F                             |Magnetic field intensity                                                                            |
+|46                  |F_err                         |F_error                       |                                                                                                    |
+|47                  |dF_Sun                        |dF_Sun                        |                                                                                                    |
+|48                  |dF_AOCS                       |dF_AOCS                       |                                                                                                    |
+|49                  |dF_other                      |dF_other                      |                                                                                                    |
+|50                  |SC_APEX_LAT                   |N/A                           |APEX Latitude                                                                                       |
+|51                  |SC_APEX_LON                   |N/A                           |APEX Longitude                                                                                      |
+|52                  |SC_APEX_MLT                   |N/A                           |APEX Magnetic Local Time                                                                            |
+|53                  |SC_GEO_LST                    |N/A                           |Local Solar Time                                                                                    |
+\end{verbatim}
+
+\subparagraph{Get a variable and data array}
+
+\begin{verbatim}
+B_N = ds['B_N']
+\end{verbatim}
+
+Above returns a GeospaceLAB Variable object. To get the data array, call
+
+\begin{verbatim}
+B_N_arr = B_N.value
+\end{verbatim}
+
+Above returns a \texttt{numpy.ndarray} data array.
+
+It is also posible to get the variable using the variable name in the source file/data as shown in the list above:
+
+\begin{verbatim}
+ds['SC_GEO_LAT'] == ds['Latitude']
+\end{verbatim}
+
+\begin{verbatim}
+True
+\end{verbatim}
+
+\subsubsection{Access data via Swarm VirES (developing)}\label{swarm-vires}
+
+In a similar way, users can dock the Swarm data product from the Swarm VirES service, by simply adding the keyword \texttt{from\_VirES=True}. It is also possible to access the Swarm FAST data by add the keyword \texttt{from\_FAST=True}.
+
+\begin{framed}
+\textbf{Note}\\
+Support for the FAST data is only availble when \texttt{from\_VirES=True} or \texttt{from\_HAPI=True} is called.
+\end{framed}
+
+\paragraph{Retreive data from VirES}
+
+\begin{verbatim}
+ds_VirES = dh.dock(
+    datasource_contents=['esa_eo', 'swarm', 'l1b', 'mag_lr'], 
+    sat_id=sat_id,
+    from_VirES=True,  # Whether to retrieve the data from VirES instead of the local cache. 
+    )
+ds_VirES.list_all_variables()
+\end{verbatim}
+
+\begin{verbatim}
+INFO: Loading data from VirES for collection SW_OPER_MAGA_LR_1B with products {'measurements': ['B_VFM', 'B_NEC', 'dB_Sun', 'dB_AOCS', 'dB_other', 'B_error', 'q_NEC_CRF', 'Att_error', 'Flags_B', 'Flags_q', 'Flags_Platform', 'Flags_F', 'ASM_Freq_Dev', 'F', 'F_error', 'dF_Sun', 'dF_AOCS', 'dF_other'], 'models': ['CHAOS -Core'], 'residuals': False}.
+Processing:  100%|██████████|  [ Elapsed: 00:00, Remaining: 00:00 ] [1/1] 
+Downloading: 100%|██████████|  [ Elapsed: 00:00, Remaining: 00:00 ] (0.219MB)
+INFO: Data loaded from VirES.
+WARNING: Variable name Spacecraft not found in the variable name dictionary, and no unique match found. Skipping this variable.
+WARNING: Variable SC_GEO_R is not in the default variable names and does not match the patterns for automatically assigning configured variable names. It will be added without a configured variable name, and may not be included in the default panels for plotting and analysis. Please check if this variable should be included in the default variable names or if it follows the naming patterns for automatic assignment of configured variable names.
+WARNING: Variable B_NEC_CHAOS -Core is not in the default variable names and does not match the patterns for automatically assigning configured variable names. It will be added without a configured variable name, and may not be included in the default panels for plotting and analysis. Please check if this variable should be included in the default variable names or if it follows the naming patterns for automatic assignment of configured variable names.
+/opt/anaconda3/envs/Swarm/lib/python3.12/site -packages/numpy/_core/numeric.py:442: RuntimeWarning: invalid value encountered in cast
+  multiarray.copyto(res, fill_value, casting='unsafe')
+Dataset: esa/earthonline | swarm | mag | mag_lr
+Printing all of the variables ...
+|No.                 |Variable name                 |Variable name (Source)        |Description                                                                                         |
+| - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -|
+|1                   |F_err                         |F_error                       |                                                                                                    |
+|2                   |dF_Sun                        |dF_Sun                        |                                                                                                    |
+|3                   |ASM_Freq_Dev                  |ASM_Freq_Dev                  |                                                                                                    |
+|4                   |SC_GEO_R                      |Radius                        |                                                                                                    |
+|5                   |FLAG_F                        |Flags_F                       |Flag F                                                                                              |
+|6                   |SC_GEO_LON                    |Longitude                     |Geographic Longitude                                                                                |
+|7                   |F_CHAOS -Core                  |N/A                           |Magnetic field intensity                                                                            |
+|8                   |FLAG_q                        |Flags_q                       |Flag q                                                                                              |
+|9                   |FLAG_Platform                 |Flags_Platform                |Flag Platform                                                                                       |
+|10                  |dF_AOCS                       |dF_AOCS                       |                                                                                                    |
+|11                  |B_NEC_CHAOS -Core              |N/A                           |                                                                                                    |
+|12                  |dB_AOCS_VFM                   |dB_AOCS                       |                                                                                                    |
+|13                  |dB_other_VFM                  |dB_other                      |                                                                                                    |
+|14                  |SC_GEO_LAT                    |Latitude                      |Geographic Latitude                                                                                 |
+|15                  |FLAG_B                        |Flags_B                       |Flag B                                                                                              |
+|16                  |B_NEC                         |B_NEC                         |                                                                                                    |
+|17                  |dB_Sun_VFM                    |dB_Sun                        |                                                                                                    |
+|18                  |dF_other                      |dF_other                      |                                                                                                    |
+|19                  |q_NEC_CRF                     |q_NEC_CRF                     |                                                                                                    |
+|20                  |B_VFM_err                     |B_error                       |                                                                                                    |
+|21                  |F                             |F                             |Magnetic field intensity                                                                            |
+|22                  |B_VFM                         |B_VFM                         |                                                                                                    |
+|23                  |Att_error                     |Att_error                     |                                                                                                    |
+|24                  |SC_DATETIME                   |N/A                           |Time of observation                                                                                 |
+|25                  |SC_GEO_r                      |N/A                           |                                                                                                    |
+|26                  |B_CHAOS -Core_N                |N/A                           |B in northward direction of NEC frame                                                               |
+|27                  |B_CHAOS -Core_E                |N/A                           |B in eastward direction of NEC frame                                                                |
+|28                  |B_CHAOS -Core_C                |N/A                           |B in downward direction of NEC frame                                                                |
+|29                  |dB_AOCS_VFM_x                 |N/A                           |dB due to AOCS induced perturbation in x direction of VFM frame                                     |
+|30                  |dB_AOCS_VFM_y                 |N/A                           |dB due to AOCS induced perturbation in y direction of VFM frame                                     |
+|31                  |dB_AOCS_VFM_z                 |N/A                           |dB due to AOCS induced perturbation in z direction of VFM frame                                     |
+|32                  |dB_other_VFM_x                |N/A                           |dB due to all other sources of perturbation in x direction of VFM frame                             |
+|33                  |dB_other_VFM_y                |N/A                           |dB due to all other sources of perturbation in y direction of VFM frame                             |
+|34                  |dB_other_VFM_z                |N/A                           |dB due to all other sources of perturbation in z direction of VFM frame                             |
+|35                  |B_N                           |N/A                           |B in northward direction of NEC frame                                                               |
+|36                  |B_E                           |N/A                           |B in eastward direction of NEC frame                                                                |
+|37                  |B_C                           |N/A                           |B in downward direction of NEC frame                                                                |
+|38                  |dB_Sun_VFM_x                  |N/A                           |dB due to Sun induced perturbation in x direction of VFM frame                                      |
+|39                  |dB_Sun_VFM_y                  |N/A                           |dB due to Sun induced perturbation in y direction of VFM frame                                      |
+|40                  |dB_Sun_VFM_z                  |N/A                           |dB due to Sun induced perturbation in z direction of VFM frame                                      |
+|41                  |B_VFM_x_err                   |N/A                           |                                                                                                    |
+|42                  |B_VFM_y_err                   |N/A                           |                                                                                                    |
+|43                  |B_VFM_z_err                   |N/A                           |                                                                                                    |
+|44                  |B_VFM_x                       |N/A                           |B in x direction of VFM frame                                                                       |
+|45                  |B_VFM_y                       |N/A                           |B in y direction of VFM frame                                                                       |
+|46                  |B_VFM_z                       |N/A                           |B in z direction of VFM frame                                                                       |
+|47                  |FLAG_B_BIN_AUX                |N/A                           |Binary flag for B                                                                                   |
+|48                  |FLAG_B_BIN_IND                |N/A                           |                                                                                                    |
+|49                  |FLAG_q_BIN_AUX                |N/A                           |Binary flag for q                                                                                   |
+|50                  |FLAG_q_BIN_IND                |N/A                           |                                                                                                    |
+|51                  |FLAG_Platform_BIN_AUX         |N/A                           |Binary flag for Platform                                                                            |
+|52                  |FLAG_Platform_BIN_IND         |N/A                           |                                                                                                    |
+|53                  |FLAG_F_BIN_AUX                |N/A                           |Binary flag for F                                                                                   |
+|54                  |FLAG_F_BIN_IND                |N/A                           |                                                                                                    |
+|55                  |SC_GEO_LST                    |N/A                           |Local Solar Time                                                                                    |
+\end{verbatim}
+
+\paragraph{Retrieve FAST data from VirES}
+
+\begin{verbatim}
+dt_now = datetime.datetime.now()
+dt_fr_FAST = datetime.datetime(dt_now.year, dt_now.month, dt_now.day) - datetime.timedelta(days=30)
+dt_to_FAST = datetime.datetime(dt_now.year, dt_now.month, dt_now.day) - datetime.timedelta(days=30) \
+    + datetime.timedelta(hours=0, minutes=2)
+ds_VirES_FAST = dh.dock(
+    datasource_contents=['esa_eo', 'swarm', 'l1b', 'mag_lr'], 
+    dt_fr=dt_fr_FAST,    # Start time for data retrieval
+    dt_to=dt_to_FAST,    # End time for data retrieval
+    sat_id=sat_id,
+    from_VirES=True,  # Whether to retrieve the data from VirES instead of the local cache. 
+    from_FAST=True  # Whether to retrieve the data from FAST instead of the local cache.
+    )
+ds_VirES_FAST.list_all_variables()
+\end{verbatim}
+
+\begin{verbatim}
+INFO: Loading data from VirES for collection SW_FAST_MAGA_LR_1B with products {'measurements': ['B_VFM', 'B_NEC', 'dB_Sun', 'dB_AOCS', 'dB_other', 'B_error', 'q_NEC_CRF', 'Att_error', 'Flags_B', 'Flags_q', 'Flags_Platform', 'Flags_F', 'ASM_Freq_Dev', 'F', 'F_error', 'dF_Sun', 'dF_AOCS', 'dF_other'], 'models': ['CHAOS -Core'], 'residuals': False}.
+Processing:  100%|██████████|  [ Elapsed: 00:00, Remaining: 00:00 ] [1/1] 
+Downloading: 100%|██████████|  [ Elapsed: 00:00, Remaining: 00:00 ] (0.217MB)
+INFO: Data loaded from VirES.
+WARNING: Variable name Spacecraft not found in the variable name dictionary, and no unique match found. Skipping this variable.
+WARNING: Variable SC_GEO_R is not in the default variable names and does not match the patterns for automatically assigning configured variable names. It will be added without a configured variable name, and may not be included in the default panels for plotting and analysis. Please check if this variable should be included in the default variable names or if it follows the naming patterns for automatic assignment of configured variable names.
+WARNING: Variable B_NEC_CHAOS -Core is not in the default variable names and does not match the patterns for automatically assigning configured variable names. It will be added without a configured variable name, and may not be included in the default panels for plotting and analysis. Please check if this variable should be included in the default variable names or if it follows the naming patterns for automatic assignment of configured variable names.
+/opt/anaconda3/envs/Swarm/lib/python3.12/site -packages/numpy/_core/numeric.py:442: RuntimeWarning: invalid value encountered in cast
+  multiarray.copyto(res, fill_value, casting='unsafe')
+Dataset: esa/earthonline | swarm | mag | mag_lr
+Printing all of the variables ...
+|No.                 |Variable name                 |Variable name (Source)        |Description                                                                                         |
+| - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -|
+|1                   |F_err                         |F_error                       |                                                                                                    |
+|2                   |dF_Sun                        |dF_Sun                        |                                                                                                    |
+|3                   |ASM_Freq_Dev                  |ASM_Freq_Dev                  |                                                                                                    |
+|4                   |SC_GEO_R                      |Radius                        |                                                                                                    |
+|5                   |FLAG_F                        |Flags_F                       |Flag F                                                                                              |
+|6                   |SC_GEO_LON                    |Longitude                     |Geographic Longitude                                                                                |
+|7                   |F_CHAOS -Core                  |N/A                           |Magnetic field intensity                                                                            |
+|8                   |FLAG_q                        |Flags_q                       |Flag q                                                                                              |
+|9                   |FLAG_Platform                 |Flags_Platform                |Flag Platform                                                                                       |
+|10                  |dF_AOCS                       |dF_AOCS                       |                                                                                                    |
+|11                  |B_NEC_CHAOS -Core              |N/A                           |                                                                                                    |
+|12                  |dB_AOCS_VFM                   |dB_AOCS                       |                                                                                                    |
+|13                  |dB_other_VFM                  |dB_other                      |                                                                                                    |
+|14                  |SC_GEO_LAT                    |Latitude                      |Geographic Latitude                                                                                 |
+|15                  |FLAG_B                        |Flags_B                       |Flag B                                                                                              |
+|16                  |B_NEC                         |B_NEC                         |                                                                                                    |
+|17                  |dB_Sun_VFM                    |dB_Sun                        |                                                                                                    |
+|18                  |dF_other                      |dF_other                      |                                                                                                    |
+|19                  |q_NEC_CRF                     |q_NEC_CRF                     |                                                                                                    |
+|20                  |B_VFM_err                     |B_error                       |                                                                                                    |
+|21                  |F                             |F                             |Magnetic field intensity                                                                            |
+|22                  |B_VFM                         |B_VFM                         |                                                                                                    |
+|23                  |Att_error                     |Att_error                     |                                                                                                    |
+|24                  |SC_DATETIME                   |N/A                           |Time of observation                                                                                 |
+|25                  |SC_GEO_r                      |N/A                           |                                                                                                    |
+|26                  |B_CHAOS -Core_N                |N/A                           |B in northward direction of NEC frame                                                               |
+|27                  |B_CHAOS -Core_E                |N/A                           |B in eastward direction of NEC frame                                                                |
+|28                  |B_CHAOS -Core_C                |N/A                           |B in downward direction of NEC frame                                                                |
+|29                  |dB_AOCS_VFM_x                 |N/A                           |dB due to AOCS induced perturbation in x direction of VFM frame                                     |
+|30                  |dB_AOCS_VFM_y                 |N/A                           |dB due to AOCS induced perturbation in y direction of VFM frame                                     |
+|31                  |dB_AOCS_VFM_z                 |N/A                           |dB due to AOCS induced perturbation in z direction of VFM frame                                     |
+|32                  |dB_other_VFM_x                |N/A                           |dB due to all other sources of perturbation in x direction of VFM frame                             |
+|33                  |dB_other_VFM_y                |N/A                           |dB due to all other sources of perturbation in y direction of VFM frame                             |
+|34                  |dB_other_VFM_z                |N/A                           |dB due to all other sources of perturbation in z direction of VFM frame                             |
+|35                  |B_N                           |N/A                           |B in northward direction of NEC frame                                                               |
+|36                  |B_E                           |N/A                           |B in eastward direction of NEC frame                                                                |
+|37                  |B_C                           |N/A                           |B in downward direction of NEC frame                                                                |
+|38                  |dB_Sun_VFM_x                  |N/A                           |dB due to Sun induced perturbation in x direction of VFM frame                                      |
+|39                  |dB_Sun_VFM_y                  |N/A                           |dB due to Sun induced perturbation in y direction of VFM frame                                      |
+|40                  |dB_Sun_VFM_z                  |N/A                           |dB due to Sun induced perturbation in z direction of VFM frame                                      |
+|41                  |B_VFM_x_err                   |N/A                           |                                                                                                    |
+|42                  |B_VFM_y_err                   |N/A                           |                                                                                                    |
+|43                  |B_VFM_z_err                   |N/A                           |                                                                                                    |
+|44                  |B_VFM_x                       |N/A                           |B in x direction of VFM frame                                                                       |
+|45                  |B_VFM_y                       |N/A                           |B in y direction of VFM frame                                                                       |
+|46                  |B_VFM_z                       |N/A                           |B in z direction of VFM frame                                                                       |
+|47                  |FLAG_B_BIN_AUX                |N/A                           |Binary flag for B                                                                                   |
+|48                  |FLAG_B_BIN_IND                |N/A                           |                                                                                                    |
+|49                  |FLAG_q_BIN_AUX                |N/A                           |Binary flag for q                                                                                   |
+|50                  |FLAG_q_BIN_IND                |N/A                           |                                                                                                    |
+|51                  |FLAG_Platform_BIN_AUX         |N/A                           |Binary flag for Platform                                                                            |
+|52                  |FLAG_Platform_BIN_IND         |N/A                           |                                                                                                    |
+|53                  |FLAG_F_BIN_AUX                |N/A                           |Binary flag for F                                                                                   |
+|54                  |FLAG_F_BIN_IND                |N/A                           |                                                                                                    |
+|55                  |SC_GEO_LST                    |N/A                           |Local Solar Time                                                                                    |
+\end{verbatim}
+
+\subsubsection{Access data via Swarm VirES HAPI Service (developing)}\label{swarm-hapi}
+
+Users can dock the Swarm data product from the VirES HAPI service, by simply adding the keyword \texttt{from\_HAPI=True}.
+
+\paragraph{Retrieve data from HAPI}
+
+\begin{verbatim}
+ds_HAPI = dh.dock(
+    datasource_contents=['esa_eo', 'swarm', 'l1b', 'mag_lr'], 
+    sat_id=sat_id,
+    from_HAPI=True,  # Whether to retrieve the data from HAPI instead of the local cache. 
+    )
+ds_HAPI.list_all_variables()
+\end{verbatim}
+
+\begin{verbatim}
+INFO: Loading data from HAPI for server https://vires.services/hapi, dataset SW_OPER_MAGA_LR_1B, parameters Timestamp,Latitude,Longitude,Radius.
+INFO: Data loaded from HAPI.
+INFO: Loading data from HAPI for server https://vires.services/hapi, dataset SW_OPER_MAGA_LR_1B, parameters F,dF_Sun,dF_AOCS,dF_other,F_error,B_VFM,B_NEC,dB_Sun,dB_AOCS,dB_other,B_error.
+INFO: Data loaded from HAPI.
+INFO: Loading data from HAPI for server https://vires.services/hapi, dataset SW_OPER_MAGA_LR_1B, parameters q_NEC_CRF,Att_error,Flags_F,Flags_B,Flags_q,Flags_Platform,ASM_Freq_Dev.
+INFO: Data loaded from HAPI.
+INFO: Loading data from HAPI for server https://vires.services/hapi, dataset SW_OPER_MAGA_LR_1B, parameters SyncStatus,B_NEC_Model,F_Model,F_res_Model,B_NEC_res_Model.
+INFO: Data loaded from HAPI.
+WARNING: Variable CDF_EPOCH is not in the default variable names and does not match the patterns for automatically assigning configured variable names. It will be added without a configured variable name, and may not be included in the default panels for plotting and analysis. Please check if this variable should be included in the default variable names or if it follows the naming patterns for automatic assignment of configured variable names.
+WARNING: Variable SC_GEO_R is not in the default variable names and does not match the patterns for automatically assigning configured variable names. It will be added without a configured variable name, and may not be included in the default panels for plotting and analysis. Please check if this variable should be included in the default variable names or if it follows the naming patterns for automatic assignment of configured variable names.
+WARNING: Variable B_NEC_Model is not in the default variable names and does not match the patterns for automatically assigning configured variable names. It will be added without a configured variable name, and may not be included in the default panels for plotting and analysis. Please check if this variable should be included in the default variable names or if it follows the naming patterns for automatic assignment of configured variable names.
+WARNING: Variable B_NEC_res_Model is not in the default variable names and does not match the patterns for automatically assigning configured variable names. It will be added without a configured variable name, and may not be included in the default panels for plotting and analysis. Please check if this variable should be included in the default variable names or if it follows the naming patterns for automatic assignment of configured variable names.
+/opt/anaconda3/envs/Swarm/lib/python3.12/site -packages/numpy/_core/numeric.py:476: RuntimeWarning: invalid value encountered in cast
+  multiarray.copyto(res, fill_value, casting='unsafe')
+Dataset: esa/earthonline | swarm | mag | mag_lr
+Printing all of the variables ...
+|No.                 |Variable name                 |Variable name (Source)        |Description                                                                                         |
+| - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -|
+|1                   |CDF_EPOCH                     |Timestamp                     |                                                                                                    |
+|2                   |SC_GEO_LAT                    |Latitude                      |Geographic Latitude                                                                                 |
+|3                   |SC_GEO_LON                    |Longitude                     |Geographic Longitude                                                                                |
+|4                   |SC_GEO_R                      |Radius                        |                                                                                                    |
+|5                   |SC_DATETIME                   |N/A                           |Time of observation                                                                                 |
+|6                   |F                             |F                             |Magnetic field intensity                                                                            |
+|7                   |dF_Sun                        |dF_Sun                        |                                                                                                    |
+|8                   |dF_AOCS                       |dF_AOCS                       |                                                                                                    |
+|9                   |dF_other                      |dF_other                      |                                                                                                    |
+|10                  |F_err                         |F_error                       |                                                                                                    |
+|11                  |B_VFM                         |B_VFM                         |                                                                                                    |
+|12                  |B_NEC                         |B_NEC                         |                                                                                                    |
+|13                  |dB_Sun_VFM                    |dB_Sun                        |                                                                                                    |
+|14                  |dB_AOCS_VFM                   |dB_AOCS                       |                                                                                                    |
+|15                  |dB_other_VFM                  |dB_other                      |                                                                                                    |
+|16                  |B_VFM_err                     |B_error                       |                                                                                                    |
+|17                  |q_NEC_CRF                     |q_NEC_CRF                     |                                                                                                    |
+|18                  |Att_error                     |Att_error                     |                                                                                                    |
+|19                  |FLAG_F                        |Flags_F                       |Flag F                                                                                              |
+|20                  |FLAG_B                        |Flags_B                       |Flag B                                                                                              |
+|21                  |FLAG_q                        |Flags_q                       |Flag q                                                                                              |
+|22                  |FLAG_Platform                 |Flags_Platform                |Flag Platform                                                                                       |
+|23                  |ASM_Freq_Dev                  |ASM_Freq_Dev                  |                                                                                                    |
+|24                  |SYNC_STATUS                   |SyncStatus                    |                                                                                                    |
+|25                  |B_NEC_Model                   |N/A                           |                                                                                                    |
+|26                  |F_Model                       |N/A                           |Magnetic field intensity                                                                            |
+|27                  |F_res_Model                   |N/A                           |Magnetic field intensity                                                                            |
+|28                  |B_NEC_res_Model               |N/A                           |                                                                                                    |
+|29                  |SC_GEO_r                      |N/A                           |                                                                                                    |
+|30                  |B_VFM_x                       |N/A                           |B in x direction of VFM frame                                                                       |
+|31                  |B_VFM_y                       |N/A                           |B in y direction of VFM frame                                                                       |
+|32                  |B_VFM_z                       |N/A                           |B in z direction of VFM frame                                                                       |
+|33                  |B_N                           |N/A                           |B in northward direction of NEC frame                                                               |
+|34                  |B_E                           |N/A                           |B in eastward direction of NEC frame                                                                |
+|35                  |B_C                           |N/A                           |B in downward direction of NEC frame                                                                |
+|36                  |dB_Sun_VFM_x                  |N/A                           |dB due to Sun induced perturbation in x direction of VFM frame                                      |
+|37                  |dB_Sun_VFM_y                  |N/A                           |dB due to Sun induced perturbation in y direction of VFM frame                                      |
+|38                  |dB_Sun_VFM_z                  |N/A                           |dB due to Sun induced perturbation in z direction of VFM frame                                      |
+|39                  |dB_AOCS_VFM_x                 |N/A                           |dB due to AOCS induced perturbation in x direction of VFM frame                                     |
+|40                  |dB_AOCS_VFM_y                 |N/A                           |dB due to AOCS induced perturbation in y direction of VFM frame                                     |
+|41                  |dB_AOCS_VFM_z                 |N/A                           |dB due to AOCS induced perturbation in z direction of VFM frame                                     |
+|42                  |dB_other_VFM_x                |N/A                           |dB due to all other sources of perturbation in x direction of VFM frame                             |
+|43                  |dB_other_VFM_y                |N/A                           |dB due to all other sources of perturbation in y direction of VFM frame                             |
+|44                  |dB_other_VFM_z                |N/A                           |dB due to all other sources of perturbation in z direction of VFM frame                             |
+|45                  |B_VFM_x_err                   |N/A                           |                                                                                                    |
+|46                  |B_VFM_y_err                   |N/A                           |                                                                                                    |
+|47                  |B_VFM_z_err                   |N/A                           |                                                                                                    |
+|48                  |B_Model_N                     |N/A                           |B in northward direction of NEC frame                                                               |
+|49                  |B_Model_E                     |N/A                           |B in eastward direction of NEC frame                                                                |
+|50                  |B_Model_C                     |N/A                           |B in downward direction of NEC frame                                                                |
+|51                  |B_res_Model_N                 |N/A                           |B in northward direction of NEC frame                                                               |
+|52                  |B_res_Model_E                 |N/A                           |B in eastward direction of NEC frame                                                                |
+|53                  |B_res_Model_C                 |N/A                           |B in downward direction of NEC frame                                                                |
+|54                  |FLAG_B_BIN_AUX                |N/A                           |Binary flag for B                                                                                   |
+|55                  |FLAG_B_BIN_IND                |N/A                           |                                                                                                    |
+|56                  |FLAG_q_BIN_AUX                |N/A                           |Binary flag for q                                                                                   |
+|57                  |FLAG_q_BIN_IND                |N/A                           |                                                                                                    |
+|58                  |FLAG_Platform_BIN_AUX         |N/A                           |Binary flag for Platform                                                                            |
+|59                  |FLAG_Platform_BIN_IND         |N/A                           |                                                                                                    |
+|60                  |FLAG_F_BIN_AUX                |N/A                           |Binary flag for F                                                                                   |
+|61                  |FLAG_F_BIN_IND                |N/A                           |                                                                                                    |
+|62                  |SC_GEO_LST                    |N/A                           |Local Solar Time                                                                                    |
+\end{verbatim}
+
+\paragraph{Retrieve FAST data from HAPI}
+
+\begin{verbatim}
+dt_now = datetime.datetime.now()
+dt_fr_FAST = datetime.datetime(dt_now.year, dt_now.month, dt_now.day) - datetime.timedelta(days=30)
+dt_to_FAST = datetime.datetime(dt_now.year, dt_now.month, dt_now.day) - datetime.timedelta(days=30) \
+    + datetime.timedelta(hours=0, minutes=2)
+ds_HAPI_FAST = dh.dock(
+    datasource_contents=['esa_eo', 'swarm', 'l1b', 'mag_lr'], 
+    dt_fr=dt_fr_FAST,    # Start time for data retrieval
+    dt_to=dt_to_FAST,    # End time for data retrieval
+    sat_id=sat_id,
+    from_HAPI=True,  # Whether to retrieve the data from HAPI instead of the local cache. 
+    from_FAST=True  # Whether to retrieve the data from FAST instead of the local cache.
+    )
+ds_HAPI_FAST.list_all_variables()
+\end{verbatim}
+
+\begin{verbatim}
+INFO: Loading data from HAPI for server https://vires.services/hapi, dataset SW_FAST_MAGA_LR_1B, parameters Timestamp,Latitude,Longitude,Radius.
+INFO: Data loaded from HAPI.
+INFO: Loading data from HAPI for server https://vires.services/hapi, dataset SW_FAST_MAGA_LR_1B, parameters F,dF_Sun,dF_AOCS,dF_other,F_error,B_VFM,B_NEC,dB_Sun,dB_AOCS,dB_other,B_error.
+INFO: Data loaded from HAPI.
+INFO: Loading data from HAPI for server https://vires.services/hapi, dataset SW_FAST_MAGA_LR_1B, parameters q_NEC_CRF,Att_error,Flags_F,Flags_B,Flags_q,Flags_Platform,ASM_Freq_Dev.
+INFO: Data loaded from HAPI.
+INFO: Loading data from HAPI for server https://vires.services/hapi, dataset SW_FAST_MAGA_LR_1B, parameters SyncStatus,B_NEC_Model,F_Model,F_res_Model,B_NEC_res_Model.
+INFO: Data loaded from HAPI.
+WARNING: Variable CDF_EPOCH is not in the default variable names and does not match the patterns for automatically assigning configured variable names. It will be added without a configured variable name, and may not be included in the default panels for plotting and analysis. Please check if this variable should be included in the default variable names or if it follows the naming patterns for automatic assignment of configured variable names.
+WARNING: Variable SC_GEO_R is not in the default variable names and does not match the patterns for automatically assigning configured variable names. It will be added without a configured variable name, and may not be included in the default panels for plotting and analysis. Please check if this variable should be included in the default variable names or if it follows the naming patterns for automatic assignment of configured variable names.
+WARNING: Variable B_NEC_Model is not in the default variable names and does not match the patterns for automatically assigning configured variable names. It will be added without a configured variable name, and may not be included in the default panels for plotting and analysis. Please check if this variable should be included in the default variable names or if it follows the naming patterns for automatic assignment of configured variable names.
+WARNING: Variable B_NEC_res_Model is not in the default variable names and does not match the patterns for automatically assigning configured variable names. It will be added without a configured variable name, and may not be included in the default panels for plotting and analysis. Please check if this variable should be included in the default variable names or if it follows the naming patterns for automatic assignment of configured variable names.
+/opt/anaconda3/envs/Swarm/lib/python3.12/site -packages/numpy/_core/numeric.py:442: RuntimeWarning: invalid value encountered in cast
+  multiarray.copyto(res, fill_value, casting='unsafe')
+Dataset: esa/earthonline | swarm | mag | mag_lr
+Printing all of the variables ...
+|No.                 |Variable name                 |Variable name (Source)        |Description                                                                                         |
+| - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -|
+|1                   |CDF_EPOCH                     |Timestamp                     |                                                                                                    |
+|2                   |SC_GEO_LAT                    |Latitude                      |Geographic Latitude                                                                                 |
+|3                   |SC_GEO_LON                    |Longitude                     |Geographic Longitude                                                                                |
+|4                   |SC_GEO_R                      |Radius                        |                                                                                                    |
+|5                   |SC_DATETIME                   |N/A                           |Time of observation                                                                                 |
+|6                   |F                             |F                             |Magnetic field intensity                                                                            |
+|7                   |dF_Sun                        |dF_Sun                        |                                                                                                    |
+|8                   |dF_AOCS                       |dF_AOCS                       |                                                                                                    |
+|9                   |dF_other                      |dF_other                      |                                                                                                    |
+|10                  |F_err                         |F_error                       |                                                                                                    |
+|11                  |B_VFM                         |B_VFM                         |                                                                                                    |
+|12                  |B_NEC                         |B_NEC                         |                                                                                                    |
+|13                  |dB_Sun_VFM                    |dB_Sun                        |                                                                                                    |
+|14                  |dB_AOCS_VFM                   |dB_AOCS                       |                                                                                                    |
+|15                  |dB_other_VFM                  |dB_other                      |                                                                                                    |
+|16                  |B_VFM_err                     |B_error                       |                                                                                                    |
+|17                  |q_NEC_CRF                     |q_NEC_CRF                     |                                                                                                    |
+|18                  |Att_error                     |Att_error                     |                                                                                                    |
+|19                  |FLAG_F                        |Flags_F                       |Flag F                                                                                              |
+|20                  |FLAG_B                        |Flags_B                       |Flag B                                                                                              |
+|21                  |FLAG_q                        |Flags_q                       |Flag q                                                                                              |
+|22                  |FLAG_Platform                 |Flags_Platform                |Flag Platform                                                                                       |
+|23                  |ASM_Freq_Dev                  |ASM_Freq_Dev                  |                                                                                                    |
+|24                  |SYNC_STATUS                   |SyncStatus                    |                                                                                                    |
+|25                  |B_NEC_Model                   |N/A                           |                                                                                                    |
+|26                  |F_Model                       |N/A                           |Magnetic field intensity                                                                            |
+|27                  |F_res_Model                   |N/A                           |Magnetic field intensity                                                                            |
+|28                  |B_NEC_res_Model               |N/A                           |                                                                                                    |
+|29                  |SC_GEO_r                      |N/A                           |                                                                                                    |
+|30                  |B_VFM_x                       |N/A                           |B in x direction of VFM frame                                                                       |
+|31                  |B_VFM_y                       |N/A                           |B in y direction of VFM frame                                                                       |
+|32                  |B_VFM_z                       |N/A                           |B in z direction of VFM frame                                                                       |
+|33                  |B_N                           |N/A                           |B in northward direction of NEC frame                                                               |
+|34                  |B_E                           |N/A                           |B in eastward direction of NEC frame                                                                |
+|35                  |B_C                           |N/A                           |B in downward direction of NEC frame                                                                |
+|36                  |dB_Sun_VFM_x                  |N/A                           |dB due to Sun induced perturbation in x direction of VFM frame                                      |
+|37                  |dB_Sun_VFM_y                  |N/A                           |dB due to Sun induced perturbation in y direction of VFM frame                                      |
+|38                  |dB_Sun_VFM_z                  |N/A                           |dB due to Sun induced perturbation in z direction of VFM frame                                      |
+|39                  |dB_AOCS_VFM_x                 |N/A                           |dB due to AOCS induced perturbation in x direction of VFM frame                                     |
+|40                  |dB_AOCS_VFM_y                 |N/A                           |dB due to AOCS induced perturbation in y direction of VFM frame                                     |
+|41                  |dB_AOCS_VFM_z                 |N/A                           |dB due to AOCS induced perturbation in z direction of VFM frame                                     |
+|42                  |dB_other_VFM_x                |N/A                           |dB due to all other sources of perturbation in x direction of VFM frame                             |
+|43                  |dB_other_VFM_y                |N/A                           |dB due to all other sources of perturbation in y direction of VFM frame                             |
+|44                  |dB_other_VFM_z                |N/A                           |dB due to all other sources of perturbation in z direction of VFM frame                             |
+|45                  |B_VFM_x_err                   |N/A                           |                                                                                                    |
+|46                  |B_VFM_y_err                   |N/A                           |                                                                                                    |
+|47                  |B_VFM_z_err                   |N/A                           |                                                                                                    |
+|48                  |B_Model_N                     |N/A                           |B in northward direction of NEC frame                                                               |
+|49                  |B_Model_E                     |N/A                           |B in eastward direction of NEC frame                                                                |
+|50                  |B_Model_C                     |N/A                           |B in downward direction of NEC frame                                                                |
+|51                  |B_res_Model_N                 |N/A                           |B in northward direction of NEC frame                                                               |
+|52                  |B_res_Model_E                 |N/A                           |B in eastward direction of NEC frame                                                                |
+|53                  |B_res_Model_C                 |N/A                           |B in downward direction of NEC frame                                                                |
+|54                  |FLAG_B_BIN_AUX                |N/A                           |Binary flag for B                                                                                   |
+|55                  |FLAG_B_BIN_IND                |N/A                           |                                                                                                    |
+|56                  |FLAG_q_BIN_AUX                |N/A                           |Binary flag for q                                                                                   |
+|57                  |FLAG_q_BIN_IND                |N/A                           |                                                                                                    |
+|58                  |FLAG_Platform_BIN_AUX         |N/A                           |Binary flag for Platform                                                                            |
+|59                  |FLAG_Platform_BIN_IND         |N/A                           |                                                                                                    |
+|60                  |FLAG_F_BIN_AUX                |N/A                           |Binary flag for F                                                                                   |
+|61                  |FLAG_F_BIN_IND                |N/A                           |                                                                                                    |
+|62                  |SC_GEO_LST                    |N/A                           |Local Solar Time                                                                                    |
+\end{verbatim}

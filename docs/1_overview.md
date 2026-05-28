@@ -1,12 +1,9 @@
 # Overview
 
 ## What is GeospaceLAB?
+GeospaceLAB is an open-source Python package designed to facilitate data access, management, and visualization for space physics and space weather research. It provides a unified process that connects data providers and space physics researchers, allowing them to focus more on data interpretation and research results. GeospaceLAB has been applied in the study of Magnetosphere-ionosphere-thermosphere coupling and has received recognition in the scientific community, with 44 stars (until 20.5.2025) on GitHub and inclusion in the Python in Heliosphysics Community (PyHC) in 2022.
 
-Research projects in space physics and space weather are typically based on several kinds of measured and/or modelling data. Processing and combining those data are demanding tasks because they are often provided from different data sources and in different formats.  Even one satellite mission, such as Swarm, may include tens of data products. The diversity of data adds an unnecessary complexity to the data analysis in research projects. It often takes a lot of time for a researcher to collect and manage the data before the data are processed for a further analysis and interpretation. To improve the productivity in data access and analysis, the open-source Python package GeospaceLAB is developed.
-
-GeospaceLAB provides a unified process for data access, management, and visualization that connects the data provider and the space physics researchers. Using the package, researchers can progress their research in a quick manner and focus more on the data interpretation and research results. The package has been applied in the study of Magnetosphere-ionosphere-thermosphere coupling. The package got 29 stars in GitHub and was included in Python in Heliosphysics Community (PyHC) in 2022.
-
-:::{attention} Resources
+:::{attention} Resources for GeospaceLAB
 - GeospaceLAB GitHub repository: [click here](https://github.com/JouleCai/geospacelab)
 - GeospaceLAB Documentation: [click here](https://geospacelab.readthedocs.io/en/latest/) 
 - GeospaceLAB PyPI package: [click here](https://pypi.org/project/geospacelab/)
@@ -15,12 +12,10 @@ GeospaceLAB provides a unified process for data access, management, and visualiz
 :::
 
 ## Supported Swarm data products in GeospaceLAB
-As listed in {numref}`tab:swarm-products`, GeospaceLAB currently supports 30 data products of Swarm mission. Those data products are selected from the categories of “Ionosphere/Magnetosphere”, “Thermosphere”, “Space Weather”, and “Magnetic measurements” in the [Swarm Product Data Handbook](https://swarmhandbook.earth.esa.int/catalogue/index). 
+rewrite: As listed in {numref}`tab:swarm-products`, GeospaceLAB currently supports 30 data products of Swarm mission. Those data products are selected from the categories of “Ionosphere/Magnetosphere”, “Thermosphere”, “Space Weather”, and “Magnetic measurements” in the [Swarm Product Data Handbook](https://swarmhandbook.earth.esa.int/catalogue/index). Users can easily access the listed Swarm data products from (1) ESA's [Swarm Dissemination Sever](https://earth.esa.int/eogateway/missions/swarm/data), (2) [Swarm VirES Service{sup}`*`](https://vires.services/), and (3) [VirES for Swarm - HAPI Server{sup}`*`](https://vires.services/hapi). The data access and visualization are tested and verified in GeospaceLAB.
 
-Users can easily access the listed Swarm data products from (1) ESA's [Swarm Dissemination Sever](https://earth.esa.int/eogateway/missions/swarm/data), (2) [Swarm VirES Service{sup}`*`](https://vires.services/), and (3) [VirES for Swarm - HAPI Server{sup}`*`](https://vires.services/hapi). The data access and visualization are tested and verified in GeospaceLAB. 
 :::{note}
-
-{sup}`*`: For VirES and VirES HAPI server, only the MAG data is currently supported. The support for other data products is under development and will be released in the future.
+`*`: For VirES and VirES HAPI services, only the MAG/LR data and its FAST data are currently supported. The support for other data products is under development and will be released in the future.
 :::
 
 

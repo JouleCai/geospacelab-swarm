@@ -1,0 +1,71 @@
+\subsection{Overview}
+
+\subsubsection{What is GeospaceLAB?}
+
+Research projects in space physics and space weather are typically based on several kinds of measured and/or modelling data. Processing and combining those data are demanding tasks because they are often provided from different data sources and in different formats.  Even one satellite mission, such as Swarm, may include tens of data products. The diversity of data adds an unnecessary complexity to the data analysis in research projects. It often takes a lot of time for a researcher to collect and manage the data before the data are processed for a further analysis and interpretation. To improve the productivity in data access and analysis, the open-source Python package GeospaceLAB is developed.
+
+GeospaceLAB provides a unified process for data access, management, and visualization that connects the data provider and the space physics researchers. Using the package, researchers can progress their research in a quick manner and focus more on the data interpretation and research results. The package has been applied in the study of Magnetosphere-ionosphere-thermosphere coupling. The package got 29 stars in GitHub and was included in Python in Heliosphysics Community (PyHC) in 2022.
+
+\begin{framed}
+\textbf{Resources}\\
+\begin{itemize}
+\item GeospaceLAB GitHub repository: \href{https://github.com/JouleCai/geospacelab}{click here}
+\item GeospaceLAB Documentation: \href{https://geospacelab.readthedocs.io/en/latest/}{click here}
+\item GeospaceLAB PyPI package: \href{https://pypi.org/project/geospacelab/}{click here}
+\item GeospaceLAB Swarm support documentation: \href{https://geospacelab-swarm.readthedocs.io/en/latest/}{click here}
+\item GeospaceLAB Swarm support GitHub repository: \href{https://github.com/JouleCai/geospacelab-swarm}{click here}
+\end{itemize}
+\end{framed}
+
+\subsubsection{Supported Swarm data products in GeospaceLAB}
+
+As listed in Table~\ref{tab:swarm-products}, GeospaceLAB currently supports 30 data products of Swarm mission. Those data products are selected from the categories of ``Ionosphere/Magnetosphere'', ``Thermosphere'', ``Space Weather'', and ``Magnetic measurements'' in the \href{https://swarmhandbook.earth.esa.int/catalogue/index}{Swarm Product Data Handbook}.
+
+Users can easily access the listed Swarm data products from (1) ESA's \href{https://earth.esa.int/eogateway/missions/swarm/data}{Swarm Dissemination Sever}, (2) \href{https://vires.services/}{Swarm VirES Service\textsuperscript{*}}, and (3) \href{https://vires.services/hapi}{VirES for Swarm - HAPI Server\textsuperscript{*}}. The data access and visualization are tested and verified in GeospaceLAB.
+
+\begin{framed}
+\textbf{Note}\\
+\textsuperscript{*}: For VirES and VirES HAPI server, only the MAG data is currently supported. The support for other data products is under development and will be released in the future.
+\end{framed}
+
+\begin{table}
+\centering
+\caption[]{Supported Swarm data products in GeospaceLAB}
+\label{tab:swarm-products}
+\begin{tabular}{p{\dimexpr 0.167\linewidth-2\tabcolsep}p{\dimexpr 0.167\linewidth-2\tabcolsep}p{\dimexpr 0.167\linewidth-2\tabcolsep}p{\dimexpr 0.167\linewidth-2\tabcolsep}p{\dimexpr 0.167\linewidth-2\tabcolsep}p{\dimexpr 0.167\linewidth-2\tabcolsep}}
+\toprule
+No. & Product & Level & Folder & Description & Status \\
+\hline
+1 & SW\_AEJxLPL\_2F & 2 & Level2daily & Auroral electrojets line profile -- Line current method (LC) & Tested \\
+2 & SW\_AEJxLPS\_2F & 2 & Level2daily & Auroral electrojets line profile -- SECS method & Tested \\
+3 & SW\_AEJxPBL\_2F & 2 & Level2daily & Auroral electrojets peaks and boundaries from LC & Tested \\
+4 & SW\_AEJxPBS\_2F & 2 & Level2daily & Auroral electrojets peaks and boundaries from SECS & Tested \\
+5 & SW\_AOBxFAC\_2F & 2 & Level2daily & Auroral oval boundaries derived from FAC & Tested \\
+6 & SW\_DNSxACC\_2\_ & 2 & Level2daily & Thermospheric~density derived from ACC + POD & Tested \\
+7 & SW\_DNSxPOD\_2\_ & 2 & Level2daily & Thermospheric~density derived from POD & Tested \\
+8 & SW\_EFIx\_LP\_1B & 1 & Level1b & Electric field instrument (EFI) Langmuir probe (LP) measurements at 2 Hz & Tested \\
+9 & SW\_EFIx\_LP\_FP & Advanced & Advanced/Plasma\_Data & EFI faceplate (FP) plasma density at 16 Hz & Tested \\
+10 & SW\_EFIx\_LP\_HM & Advanced & Advanced/Plasma\_Data & EFI LP extended at 2 Hz & Tested \\
+11 & SW\_EFIx\_TCT02 & Advanced & Advanced/Plasma\_Data & Extended dataset of EFI TII cross-track ion flow measurements at 2 Hz & Tested \\
+12 & SW\_EFIx\_TCT16 & Advanced & Advanced/Plasma\_Data & Extended dataset of EFI TII cross-track ion flow measurements at 16 Hz & Tested \\
+13 & SW\_EFIxIDM\_2\_ & Advanced & Advanced/Plasma\_Data & EFI LP ion drift and effective mass & Tested \\
+14 & SW\_EFIxLPI\_1B & 1b & Level1b & EFI LP measurements at 1 Hz & Tested \\
+15 & SW\_EFIxTIE\_2\_ & 2 & Level2daily & Estimated ion temperatures along Swarm satellite orbits & Tested \\
+16 & SW\_EFIxTMS\_2F & 2 & Level2daily & Dayside equatorial electric field & Tested \\
+17 & SW\_FAC\_LLS\_2F & 2 & Level2daily & Field-aligned currents (dual-satellite A-C) least-squres & Tested \\
+18 & SW\_FAC\_TMS\_2F & 2 & Level2daily & Field-aligned currents (dual-satellite A-C) & Tested \\
+19 & SW\_FACxTMS\_2F & 2 & Level2daily & Field-aligned currents (single satellite) & Tested \\
+20 & SW\_IBIxTMS\_2F & 2 & Level2daily & Ionospheric bubble index & Tested \\
+21 & SW\_IPDxIRR\_2F & 2 & Level2daily & Ionospheric Plasma Irregularities~characterised~by Swarm (IPIR) & Tested \\
+22 & SW\_MAGx\_HR\_1B & 1b & Level1b & Magnetic field (50 Hz) from VFM & Tested \\
+23 & SW\_MAGx\_LR\_1B & 1b & Level1b & Magnetic field (1 Hz) from VFM and ASM & Tested \\
+24 & SW\_MITx\_LP\_2F & 2 & Level2daily & Midlatitude ionospheric trough~boundries~and~minma~drived~from LP & Tested \\
+25 & SW\_MITxTEC\_2F & 2 & Level2daily & Midlatitude ionospheric trough~boundries~and~minma~drived~from TEC & Tested \\
+26 & SW\_NIX\_TMS\_2F & 2 & Level2daily & NIX & Tested \\
+27 & SW\_PPIxFAC\_2F & 2 & Level2daily & Equatorward boundary of SSFACs and the associated midnight PP index & Tested \\
+28 & SW\_TECxTMS\_2F & 2 & Level2daily & Ionospheric total electron content & Tested \\
+29 & SW\_TIX\_TMS\_2F & 2 & Level2daily & TIX & Tested \\
+30 & SW\_WHIxEVT\_2\_ & 2 & Level2daily & Whistler events from ASM BM 250 Hz data & Tested \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -7,7 +7,7 @@ project:
   bibliography:
     - references.bib
   exports:
-    - format: pdf
+    - format: pdf+tex
       template: plain_latex_book
       output: exports/geospacelab_swarm.pdf
   toc:

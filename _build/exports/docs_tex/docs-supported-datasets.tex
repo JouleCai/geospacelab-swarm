@@ -1,0 +1,272 @@
+\subsubsection{Supported datasets in GeospaceLAB}
+
+\begin{verbatim}
+import geospacelab.datahub as datahub
+dh = datahub.DataHub()
+dh.list_sourced_datasets()
+\end{verbatim}
+
+\begin{verbatim}
+Load IGRF coefficients ...
+data_sources
+| - - -CDAWEB
+| - - -| - - -DMSP
+| - - -| - - -| - - -SSUSI
+| - - -| - - -| - - -| - - -EDR_AUR
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['cdaweb', 'dmsp', 'ssusi', 'edr_aur']
+| - - -| - - -| - - -| - - -SDR_DISK
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id', 'orbit_id', 'pp_type', 'pole']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['cdaweb', 'dmsp', 'ssusi', 'sdr_disk']
+| - - -| - - -OMNI
+| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'omni_type', 'omni_res']
+| - - -| - - -| - - -datasource_contents: ['cdaweb', 'omni']
+| - - -ESA_EO
+| - - -| - - -SWARM
+| - - -| - - -| - - -ADVANCED
+| - - -| - - -| - - -| - - -EFI_IDM
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'advanced', 'efi_idm']
+| - - -| - - -| - - -| - - -EFI_LP_FP
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'advanced', 'efi_lp_fp']
+| - - -| - - -| - - -| - - -EFI_LP_HM
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'advanced', 'efi_lp_hm']
+| - - -| - - -| - - -| - - -EFI_TCT02
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'advanced', 'efi_tct02']
+| - - -| - - -| - - -| - - -EFI_TCT16
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'advanced', 'efi_tct16']
+| - - -| - - -| - - -L1B
+| - - -| - - -| - - -| - - -EFI_LP
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l1b', 'efi_lp']
+| - - -| - - -| - - -| - - -EFI_LPI
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l1b', 'efi_lpi']
+| - - -| - - -| - - -| - - -MAG_HR
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l1b', 'mag_hr']
+| - - -| - - -| - - -| - - -MAG_LR
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l1b', 'mag_lr']
+| - - -| - - -| - - -L2DAILY
+| - - -| - - -| - - -| - - -AEJ_LPL
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'aej_lpl']
+| - - -| - - -| - - -| - - -AEJ_PBL
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'aej_pbl']
+| - - -| - - -| - - -| - - -AEJ_PBS
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'aej_pbs']
+| - - -| - - -| - - -| - - -AOB_FAC
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'aob_fac']
+| - - -| - - -| - - -| - - -DNS_ACC
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'dns_acc']
+| - - -| - - -| - - -| - - -DNS_POD
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'dns_pod']
+| - - -| - - -| - - -| - - -EEF_TMS
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'eef_tms']
+| - - -| - - -| - - -| - - -EFI_TIE
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'efi_tie']
+| - - -| - - -| - - -| - - -FAC_LLS_DUAL
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'fac_lls_dual']
+| - - -| - - -| - - -| - - -FAC_TMS
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'fac_tms']
+| - - -| - - -| - - -| - - -FAC_TMS_DUAL
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'fac_tms_dual']
+| - - -| - - -| - - -| - - -IBI_TMS
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'ibi_tms']
+| - - -| - - -| - - -| - - -IPD_IRR
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'ipd_irr']
+| - - -| - - -| - - -| - - -MIT_LP
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'mit_lp']
+| - - -| - - -| - - -| - - -MIT_TEC
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'mit_tec']
+| - - -| - - -| - - -| - - -NIX_TMS
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'nix_tms']
+| - - -| - - -| - - -| - - -PPI_FAC
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'ppi_fac']
+| - - -| - - -| - - -| - - -TEC_TMS
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'tec_tms']
+| - - -| - - -| - - -| - - -TIX_TMS
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'tix_tms']
+| - - -| - - -| - - -| - - -WHI_EVT
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['esa_eo', 'swarm', 'l2daily', 'whi_evt']
+| - - -FMI
+| - - -| - - -IMAGE
+| - - -| - - -| - - -IE
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -datasource_contents: ['fmi', 'image', 'ie']
+| - - -GFZ
+| - - -| - - -HPO
+| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -datasource_contents: ['gfz', 'hpo']
+| - - -| - - -| - - -NOWCAST
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -datasource_contents: ['gfz', 'hpo', 'nowcast']
+| - - -| - - -KPAP
+| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -datasource_contents: ['gfz', 'kpap']
+| - - -| - - -| - - -NOWCAST
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -datasource_contents: ['gfz', 'kpap', 'nowcast']
+| - - -| - - -SNF107
+| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -datasource_contents: ['gfz', 'snf107']
+| - - -ISEE
+| - - -| - - -GNSS
+| - - -| - - -| - - -TECMAP
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -datasource_contents: ['isee', 'gnss', 'tecmap']
+| - - -JHUAPL
+| - - -| - - -AMPERE
+| - - -| - - -| - - -FITTED
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -datasource_contents: ['jhuapl', 'ampere', 'fitted']
+| - - -| - - -| - - -GRD
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -datasource_contents: ['jhuapl', 'ampere', 'grd']
+| - - -| - - -DMSP
+| - - -| - - -| - - -SSUSI
+| - - -| - - -| - - -| - - -EDRAUR
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['jhuapl', 'dmsp', 'ssusi', 'edraur']
+| - - -| - - -| - - -| - - -SDRDISK
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id', 'orbit_id', 'pp_type', 'pole']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['jhuapl', 'dmsp', 'ssusi', 'sdrdisk']
+| - - -MADRIGAL
+| - - -| - - -GNSS
+| - - -| - - -| - - -TECMAP
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -datasource_contents: ['madrigal', 'gnss', 'tecmap']
+| - - -| - - -ISR
+| - - -| - - -| - - -EISCAT
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'site', 'antenna']
+| - - -| - - -| - - -| - - -datasource_contents: ['madrigal', 'isr', 'eiscat']
+| - - -| - - -| - - -MILLSTONEHILL
+| - - -| - - -| - - -| - - -BASIC
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'antenna', 'pulse_code', 'pulse_length']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['madrigal', 'isr', 'millstonehill', 'basic']
+| - - -| - - -| - - -| - - -GRIDDED
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['madrigal', 'isr', 'millstonehill', 'gridded']
+| - - -| - - -| - - -| - - -VI
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['madrigal', 'isr', 'millstonehill', 'vi']
+| - - -| - - -| - - -PFISR
+| - - -| - - -| - - -| - - -FITTED
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['madrigal', 'isr', 'pfisr', 'fitted']
+| - - -| - - -| - - -| - - -VI
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['madrigal', 'isr', 'pfisr', 'vi']
+| - - -| - - -| - - -RISR_N
+| - - -| - - -| - - -| - - -FITTED
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['madrigal', 'isr', 'risr_n', 'fitted']
+| - - -| - - -| - - -| - - -VI
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['madrigal', 'isr', 'risr_n', 'vi']
+| - - -| - - -SATELLITES
+| - - -| - - -| - - -DMSP
+| - - -| - - -| - - -| - - -E
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['madrigal', 'satellites', 'dmsp', 'e']
+| - - -| - - -| - - -| - - -S1
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['madrigal', 'satellites', 'dmsp', 's1']
+| - - -| - - -| - - -| - - -S4
+| - - -| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -| - - -datasource_contents: ['madrigal', 'satellites', 'dmsp', 's4']
+| - - -NCEI
+| - - -| - - -DMSP
+| - - -| - - -| - - -SSM_MFR
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -datasource_contents: ['ncei', 'dmsp', 'ssm_mfr']
+| - - -NIPR
+| - - -| - - -ASC
+| - - -| - - -| - - -TRO_WMI
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'site', 'channel']
+| - - -| - - -| - - -| - - -datasource_contents: ['nipr', 'asc', 'tro_wmi']
+| - - -SUPERDARN
+| - - -| - - -POTMAP
+| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -datasource_contents: ['superdarn', 'potmap']
+| - - -SUPERMAG
+| - - -| - - -INDICES
+| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -datasource_contents: ['supermag', 'indices']
+| - - -| - - -MAGNETOMETER
+| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -datasource_contents: ['supermag', 'magnetometer']
+| - - -TUD
+| - - -| - - -CHAMP
+| - - -| - - -| - - -DNS_ACC
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -datasource_contents: ['tud', 'champ', 'dns_acc']
+| - - -| - - -| - - -WND_ACC
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -datasource_contents: ['tud', 'champ', 'wnd_acc']
+| - - -| - - -GOCE
+| - - -| - - -| - - -DNS_ACC
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -datasource_contents: ['tud', 'goce', 'dns_acc']
+| - - -| - - -| - - -DNS_WND_ACC_V01
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -| - - -datasource_contents: ['tud', 'goce', 'dns_wnd_acc_v01']
+| - - -| - - -| - - -WND_ACC
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -datasource_contents: ['tud', 'goce', 'wnd_acc']
+| - - -| - - -GRACE
+| - - -| - - -| - - -DNS_ACC
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -datasource_contents: ['tud', 'grace', 'dns_acc']
+| - - -| - - -| - - -WND_ACC
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -datasource_contents: ['tud', 'grace', 'wnd_acc']
+| - - -| - - -GRACE_FO
+| - - -| - - -| - - -DNS_ACC
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -datasource_contents: ['tud', 'grace_fo', 'dns_acc']
+| - - -| - - -| - - -WND_ACC
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -datasource_contents: ['tud', 'grace_fo', 'wnd_acc']
+| - - -| - - -SWARM
+| - - -| - - -| - - -DNS_ACC
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -datasource_contents: ['tud', 'swarm', 'dns_acc']
+| - - -| - - -| - - -DNS_POD
+| - - -| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents', 'sat_id']
+| - - -| - - -| - - -| - - -datasource_contents: ['tud', 'swarm', 'dns_pod']
+| - - -WDC
+| - - -| - - -AE
+| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -datasource_contents: ['wdc', 'ae']
+| - - -| - - -ASYSYM
+| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -datasource_contents: ['wdc', 'asysym']
+| - - -| - - -DST
+| - - -| - - -| - - -Required inputs when load_mode="AUTO": ['datasource_contents']
+| - - -| - - -| - - -datasource_contents: ['wdc', 'dst']
+\end{verbatim}

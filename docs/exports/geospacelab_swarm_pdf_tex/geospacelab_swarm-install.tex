@@ -1,0 +1,56 @@
+\subsection{Installation}
+
+\subsubsection{Python environment and IDEs}
+
+The Python distribution \textbf{Anaconda} is recommended. To install \textbf{Anaconda}, see \href{https://www.anaconda.com/docs/getting-started/anaconda/install/overview}{Installing Anaconda Distribution}. After installation, a \textbf{conda} virtual environment can be created by, e.g.,
+
+\begin{verbatim}
+conda create - -name YOUR_ENV_NAME python=3.12 cython spyder
+\end{verbatim}
+
+After creating the virtual environment, one needs to activate it:
+
+\begin{verbatim}
+conda activate YOUR_ENV_NAME
+\end{verbatim}
+
+\paragraph{Python IDEs}
+
+Popular Python IDEs include \textbf{Spyder}, \textbf{PyCharm}, and \textbf{VS Code}.
+
+\subsubsection{Install GeospaceLAB}
+
+Install GeospaceLAB via PyPI:
+
+\begin{verbatim}
+pip install geospacelab
+\end{verbatim}
+
+To upgrade GeospaceLAB:
+
+\begin{verbatim}
+pip install -U geospacelab
+\end{verbatim}
+
+\paragraph{Dependencies}
+
+Most of the dependencies are installed when the package is installed. A few packages can be installed manually.
+
+For example, the \textbf{Cartopy} package is useful for processing and mapping geospatial data. To install \textbf{Cartopy}, see \href{https://cartopy.readthedocs.io/stable/installing.html}{Installing Cartopy}.
+
+Another useful package is \textbf{ApexPy}, which provides a Python interface to the Apex coordinate system. To install \textbf{ApexPy}, see \href{https://apexpy.readthedocs.io/en/latest/installation.html}{Installing ApexPy}.
+
+\begin{framed}
+\textbf{Note}\\
+To use the VirES and HAPI services, install the \texttt{viresclient}:
+
+\begin{verbatim}
+pip install viresclient
+\end{verbatim}
+
+and the \texttt{hapiclient}:
+
+\begin{verbatim}
+pip install hapiclient
+\end{verbatim}
+\end{framed}
