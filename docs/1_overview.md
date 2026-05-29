@@ -3,16 +3,20 @@
 ## What is GeospaceLAB?
 GeospaceLAB is an open-source Python package designed to facilitate data access, management, and visualization for space physics and space weather research. It provides a unified process that connects data providers and space physics researchers, allowing them to focus more on data interpretation and research results. GeospaceLAB has been applied in the study of Magnetosphere-ionosphere-thermosphere coupling and has received recognition in the scientific community, with 44 stars (until 20.5.2025) on GitHub and inclusion in the Python in Heliosphysics Community (PyHC) in 2022.
 
-:::{attention} Resources for GeospaceLAB
-- GeospaceLAB GitHub repository: [click here](https://github.com/JouleCai/geospacelab)
-- GeospaceLAB Documentation: [click here](https://geospacelab.readthedocs.io/en/latest/) 
-- GeospaceLAB PyPI package: [click here](https://pypi.org/project/geospacelab/)
-- GeospaceLAB Swarm support documentation: [click here](https://geospacelab-swarm.readthedocs.io/en/latest/)
-- GeospaceLAB Swarm support GitHub repository: [click here](https://github.com/JouleCai/geospacelab-swarm)
+:::{attention} Resources
+GeospaceLAB:
+- GitHub repository: [click here](https://github.com/JouleCai/geospacelab)
+- Documentation: [click here](https://geospacelab.readthedocs.io/en/latest/) 
+- PyPI package: [click here](https://pypi.org/project/geospacelab/)
+
+GeospaceLAB Swarm support:
+- Documentation: [click here](https://geospacelab-swarm.readthedocs.io/en/latest/)
+- GitHub repository: [click here](https://github.com/JouleCai/geospacelab-swarm)
+- Example Python scripts: [click here](https://github.com/JouleCai/geospacelab-swarm/tree/master/tests)
 :::
 
 ## Supported Swarm data products in GeospaceLAB
-rewrite: As listed in {numref}`tab:swarm-products`, GeospaceLAB currently supports 30 data products of Swarm mission. Those data products are selected from the categories of “Ionosphere/Magnetosphere”, “Thermosphere”, “Space Weather”, and “Magnetic measurements” in the [Swarm Product Data Handbook](https://swarmhandbook.earth.esa.int/catalogue/index). Users can easily access the listed Swarm data products from (1) ESA's [Swarm Dissemination Sever](https://earth.esa.int/eogateway/missions/swarm/data), (2) [Swarm VirES Service{sup}`*`](https://vires.services/), and (3) [VirES for Swarm - HAPI Server{sup}`*`](https://vires.services/hapi). The data access and visualization are tested and verified in GeospaceLAB.
+As listed in {numref}`tab:swarm-products`, GeospaceLAB currently supports 30 data products of Swarm mission. Those data products are selected from the categories of “Ionosphere/Magnetosphere”, “Thermosphere”, “Space Weather”, and “Magnetic measurements” in the [Swarm Product Data Handbook](https://swarmhandbook.earth.esa.int/catalogue/index). Users can easily access the listed Swarm data products from (1) ESA's [Swarm Dissemination Sever](https://earth.esa.int/eogateway/missions/swarm/data), (2) [Swarm VirES Service{sup}`*`](https://vires.services/), and (3) [VirES for Swarm - HAPI Server{sup}`*`](https://vires.services/hapi). The data access and visualization are tested and verified in GeospaceLAB.
 
 :::{note}
 `*`: For VirES and VirES HAPI services, only the MAG/LR data and its FAST data are currently supported. The support for other data products is under development and will be released in the future.
