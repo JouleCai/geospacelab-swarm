@@ -43,18 +43,18 @@ As listed in {numref}`tab:swarm-products`, GeospaceLAB currently supports 30 dat
 | 14   | SW_EFIxLPI_1B   | 1b         | Level1b               | EFI LP measurements at 1 Hz                                                | Tested |
 | 15   | SW_EFIxTIE_2_   | 2          | Level2daily           | Estimated ion temperatures along Swarm satellite orbits                    | Tested |
 | 16   | SW_EFIxTMS_2F   | 2          | Level2daily           | Dayside equatorial electric field                                          | Tested |
-| 17   | SW_FAC_LLS_2F   | 2          | Level2daily           | Field-aligned currents (dual-satellite A-C) least-squres                   | Tested |
+| 17   | SW_FAC_LLS_2F   | 2          | Level2daily           | Field-aligned currents (dual-satellite A-C) least-squares                   | Tested |
 | 18   | SW_FAC_TMS_2F   | 2          | Level2daily           | Field-aligned currents (dual-satellite A-C)                                | Tested |
 | 19   | SW_FACxTMS_2F   | 2          | Level2daily           | Field-aligned currents (single satellite)                                  | Tested |
 | 20   | SW_IBIxTMS_2F   | 2          | Level2daily           | Ionospheric bubble index                                                   | Tested |
 | 21   | SW_IPDxIRR_2F   | 2          | Level2daily           | Ionospheric Plasma Irregularities characterised by Swarm (IPIR)            | Tested |
 | 22   | SW_MAGx_HR_1B   | 1b         | Level1b               | Magnetic field (50 Hz) from VFM                                            | Tested |
 | 23   | SW_MAGx_LR_1B   | 1b         | Level1b               | Magnetic field (1 Hz) from VFM and ASM                                     | Tested |
-| 24   | SW_MITx_LP_2F   | 2          | Level2daily           | Midlatitude ionospheric trough boundries and minma drived from LP          | Tested |
-| 25   | SW_MITxTEC_2F   | 2          | Level2daily           | Midlatitude ionospheric trough boundries and minma drived from TEC         | Tested |
-| 26   | SW_NIX_TMS_2F   | 2          | Level2daily           | NIX                                                                        | Tested |
+| 24   | SW_MITx_LP_2F   | 2          | Level2daily           | Midlatitude ionospheric trough boundaries and minima derived from LP          | Tested |
+| 25   | SW_MITxTEC_2F   | 2          | Level2daily           | Midlatitude ionospheric trough boundaries and minima derived from TEC         | Tested |
+| 26   | SW_NIX_TMS_2F   | 2          | Level2daily           | NEGIX: electron density gradient ionosphere index                                                                        | Tested |
 | 27   | SW_PPIxFAC_2F   | 2          | Level2daily           | Equatorward boundary of SSFACs and the associated midnight PP index        | Tested |
 | 28   | SW_TECxTMS_2F   | 2          | Level2daily           | Ionospheric total electron content                                         | Tested |
-| 29   | SW_TIX_TMS_2F   | 2          | Level2daily           | TIX                                                                        | Tested |
+| 29   | SW_TIX_TMS_2F   | 2          | Level2daily           | TEGIX: TEC-gradient ionosphere index                                                                        | Tested |
 | 30   | SW_WHIxEVT_2_   | 2          | Level2daily           | Whistler events from ASM BM 250 Hz data                                    | Tested |
 :::
